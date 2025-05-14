@@ -1,5 +1,6 @@
 "use client"
 
+import { updateProduct } from "@/actions/admin/product"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -13,14 +14,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Edit, Plus } from "lucide-react"
-import { useActionState, useState } from "react"
-import { useFieldArray, useForm } from "react-hook-form"
-import { ImageUpload } from "./image-upload"
-import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { addProduct, updateProduct } from "@/actions/admin/product"
+import { Edit } from "lucide-react"
+import { useState } from "react"
+import { useFieldArray, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
+import { z } from "zod"
+import { ImageUpload } from "./image-upload"
 
 
 export const prductFormSchema = z
@@ -37,7 +37,17 @@ export const prductFormSchema = z
 
 export type ProductFormValues = z.infer<typeof prductFormSchema>;
 
-export function EditProductDialog({ productId, product }) {
+interface EditProductDialogProps {
+  productId: string
+  product: {
+    title: string
+    img: string
+    desc: string
+    prices: number[]
+  }
+}
+
+export function EditProductDialog({ productId, product }: EditProductDialogProps) {
 
   const [isPending, setIsPending] = useState(false)
 
@@ -51,12 +61,13 @@ export function EditProductDialog({ productId, product }) {
       title: product.title || "",
       desc: product.desc || "",
       prices: product.prices || [" ", " ", " "],
-      img: product.img || "", 
+      img: product.img || "",
     }
   })
 
-  const { fields, append, remove } = useFieldArray<ProductFormValues>({
+  const { fields, } = useFieldArray<ProductFormValues>({
     control: form.control,
+    // @ts-expect-error error
     name: "prices",
   });
 
@@ -177,7 +188,7 @@ export function EditProductDialog({ productId, product }) {
                         <FormControl>
                           <ImageUpload
                             currentImage={field.value}
-                            onImageChange={(value) => {
+                            onImageChange={(value: File | null) => {
                               field.onChange(value)
                             }}
                           />

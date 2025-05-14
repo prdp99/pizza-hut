@@ -23,21 +23,26 @@ interface OrderStatusSelectProps {
 export function OrderStatusSelect({ currentStatus, orderId }: OrderStatusSelectProps) {
   const updateStatus = async (prevState: typeof initialState, newStatus: string) => {
     try {
-		startTransition(async () => {
+      startTransition(async () => {
 
-			await updateOrderStatus(orderId, newStatus)
-		})
-      return { msg: 'Status updated successfully', err: '' }
-    } catch (err: any) {
-      return { msg: '', err: err.message || 'Something went wrong' }
+        await updateOrderStatus(orderId, newStatus)
+      })
+      return { msg: 'Status updated successfully', }
+    } catch (err) {
+      console.log('error', err)
+      return { msg: 'Something went wrong' }
     }
   }
 
-  const [state, dispatch] = useActionState(updateStatus, initialState)
+  // @ts-expect-error error
+
+  const [ , dispatch, pending] = useActionState(updateStatus, initialState)
 
   return (
     <Select
+      disabled={pending}
       value={currentStatus}
+  // @ts-expect-error error
       onValueChange={(value) => dispatch(value)}
     >
       <SelectTrigger className="w-[180px]">

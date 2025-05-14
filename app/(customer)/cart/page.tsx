@@ -4,6 +4,7 @@ import CartItems from './cart-items';
 import { getAllCartItems } from '@/actions/cart';
 import CartSummary from './cart-summary';
 
+export const dynamic = 'force-dynamic'
 
 
 const CartPage = async () => {

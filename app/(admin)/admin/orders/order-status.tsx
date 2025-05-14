@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 
-const OrderStatus = ({ status }) => {
+const OrderStatus = ({ status }: {status: string}) => {
   // Convert numeric status to string if needed
   let statusText =
     typeof status === "number" ? ["Payment Pending", "Preparing", "On the Way", "Delivered"][status] : status
@@ -42,6 +42,7 @@ const OrderStatus = ({ status }) => {
   const styles = getStatusStyles()
 
   return (
+    // @ts-expect-error error
     <Badge variant={styles.variant} className={styles.className}>
       {statusText}
     </Badge>

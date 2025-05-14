@@ -1,20 +1,18 @@
 'use client'
 import AuthPopup from '@/components/auth/auth-popup'
 import { authClient } from '@/lib/auth-client'
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, SetStateAction, useEffect, useState, Dispatch, createContext } from 'react'
 import toast from 'react-hot-toast'
 
-export const AuthContext = React.createContext({
+export const AuthContext = createContext({
   isOpen: false,
   togglePopup: () => { },
-  setIsOpen: (isOpen: boolean) => { },
+  setIsOpen: (() => { }) as Dispatch<SetStateAction<boolean>>,
   openDialog: () => { },
   isAuthenticated: false,
-  logout: (callback: () => void) => { },
-  signin: () => { }
-})
-
-
+  logout: (callback: () => void) => { callback() },
+  signin: () => { },
+});
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -29,7 +27,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     } else {
       setIsAuthenticated(false)
     }
-  }, [data])
+  }, [data, userId])
 
 
   const togglePopup = () => {
@@ -45,9 +43,9 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signin = () => {
     setIsAuthenticated(true)
     setIsOpen(false)
-  } 
+  }
 
-  const logout = async (callback:() => void) => {
+  const logout = async (callback: () => void) => {
     setIsOpen(false)
     try {
       await authClient.signOut()

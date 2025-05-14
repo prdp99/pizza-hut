@@ -2,7 +2,18 @@ import { TableCell, TableRow } from "@/components/ui/table"
 import OrderStatus from "./order-status"
 import Image from "next/image"
 
-const OrderRow = ({ orderDetails }) => {
+interface orderDetailsProps {
+  _id: string
+  orderId: string
+  status: string
+  date: string
+  customerName: string
+  customerAddress: string
+  customerPhone: string
+  price:string 
+}
+
+const OrderRow = ({ orderDetails }: { orderDetails: orderDetailsProps }) => {
   return (
     <TableRow className="hover:bg-gray-50 transition-colors">
       <TableCell>

@@ -1,16 +1,19 @@
 'use client'
-import { createOrder } from '@/actions/order'
+import { OrderType } from '@/app/(admin)/admin/orders/order-details-dialog'
 import { Button } from '@/components/ui/button'
-import { authClient } from '@/lib/auth-client'
 import { convertToSubcurrency } from '@/lib/stripe-helper'
 import { PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
 
-const CheckPage = ({ amount, orderDetails,userId }: { amount: number }) => {
+interface CheckPageProps {
+    amount: number
+    orderDetails: OrderType[]
+    userId: string
+}
+
+const CheckPage = ({ amount, orderDetails, userId }: CheckPageProps) => {
 
     const stripe = useStripe()
-
 
     const elements = useElements()
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -27,7 +30,7 @@ const CheckPage = ({ amount, orderDetails,userId }: { amount: number }) => {
                 amount: convertToSubcurrency(amount),
                 metadata: {
                     orderDetails: JSON.stringify(orderDetails),
-                    userId:userId
+                    userId: userId
                 }
             })
         })
@@ -40,7 +43,7 @@ const CheckPage = ({ amount, orderDetails,userId }: { amount: number }) => {
                 setErrorMessage('Failed to fetch client secret')
             })
 
-    }, [amount])
+    }, [amount, orderDetails, userId])
 
 
 
@@ -56,6 +59,11 @@ const CheckPage = ({ amount, orderDetails,userId }: { amount: number }) => {
 
         if (submitError) {
             setErrorMessage(submitError.message || 'An error occurred during payment submission')
+            setLoading(false)
+            return
+        }
+
+        if(!clientSecret) {
             setLoading(false)
             return
         }

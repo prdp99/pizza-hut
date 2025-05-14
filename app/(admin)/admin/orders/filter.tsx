@@ -5,7 +5,6 @@ import React from 'react'
 
 const Filter = () => {
 
-    const setSearchTerm = () => {}
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -14,11 +13,11 @@ const Filter = () => {
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => setSearchTerm("")}>All Orders</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSearchTerm("Payment Pending")}>Payment Pending</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSearchTerm("Preparing")}>Preparing</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSearchTerm("On the Way")}>On the Way</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setSearchTerm("Delivered")}>Delivered</DropdownMenuItem>
+                <DropdownMenuItem >All Orders</DropdownMenuItem>
+                <DropdownMenuItem >Payment Pending</DropdownMenuItem>
+                <DropdownMenuItem >Preparing</DropdownMenuItem>
+                <DropdownMenuItem >On the Way</DropdownMenuItem>
+                <DropdownMenuItem >Delivered</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     )

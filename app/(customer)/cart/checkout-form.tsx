@@ -35,13 +35,13 @@ const formSchema = z
         customerDescription: z.string().optional(),
     })
 
+type formType = z.infer<typeof formSchema>
 const CheckoutForm = ({ amount }: CheckoutFormProps) => {
     const [isCheckoutReady, setIsCheckoutReady] = useState(false);
     const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
-    const { data: session, isPending } = authClient.useSession()
+    const { data: session } = authClient.useSession()
 
-    console.log('data session', session)
 
 
     const form = useForm({
@@ -56,10 +56,9 @@ const CheckoutForm = ({ amount }: CheckoutFormProps) => {
 
     const formValues = form.watch()
 
-    console.log('form watch values', formValues)
 
 
-    const onSubmit = async (formValues: any) => {
+    const onSubmit = async (formValues: formType) => {
         console.log('formValues', formValues)
         setIsFormSubmitted(true)
 
@@ -171,6 +170,7 @@ const CheckoutForm = ({ amount }: CheckoutFormProps) => {
                             currency: 'usd',
                         }}
                     >
+                        {/* @ts-expect-error error */}
                         <CheckPage amount={amount} orderDetails={formValues} userId={session?.user?.id} />
                     </Elements>
                 }

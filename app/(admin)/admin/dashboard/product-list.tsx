@@ -1,11 +1,12 @@
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Plus, Search } from "lucide-react"
 import { AddProductDialog } from "./add-product-dialog"
-import ProductTable from "./product-table"
+import ProductTable, { Product } from "./product-table"
 
-export function ProductList({ products }) {
+interface PropductListProps {
+  products: Product[]
+}
+
+export function ProductList({ products }:PropductListProps) {
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-4 justify-between">

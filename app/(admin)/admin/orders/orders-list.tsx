@@ -1,11 +1,12 @@
 
-import { OrderDetailsDialog } from "./order-details-dialog"
-// import { useToast } from "@/hooks/use-toast"
 import Filter from "./filter"
-import Search from "./search"
+import { OrderType } from "./order-details-dialog"
 import TableData from "./table-data"
 
-export function OrdersList({ orders }) {
+interface OrdersListProps {
+  orders: OrderType[]
+}
+export function OrdersList({ orders }: OrdersListProps) {
 
 
   return (
@@ -15,7 +16,7 @@ export function OrdersList({ orders }) {
         <Filter />
       </div>
 
-      <TableData orders={orders}/>
+      <TableData orders={orders} />
 
       {/* <div className="text-sm text-gray-500 mt-2">
         Showing {filteredOrders.length} of {orders.length} orders

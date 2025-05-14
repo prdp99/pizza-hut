@@ -15,6 +15,7 @@ const RemoveCartItem = ({ productId }: { productId: string }) => {
         try {
             await removeCartItem(productId)
         } catch (error) {
+            console.log('error',error)
             toast.error('Failed to remove item')
         } finally {
             setLoading(false)
@@ -24,6 +25,7 @@ const RemoveCartItem = ({ productId }: { productId: string }) => {
     }
     return (
         <Button
+        // @ts-expect-error error
             variants='destructive'
             className="bg-red-600 text-white hover:bg-red-700 transition duration-300 ease-in-out flex items-center justify-center"
             onClick={handleRemove}

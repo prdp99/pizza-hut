@@ -1,9 +1,22 @@
-import { Badge } from '@/components/ui/badge'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import Image from 'next/image'
 import TableAction from './table-action'
 
-const ProductTable = ({ products }) => {
+export interface Product {
+    title: string
+    _id: string
+    img: string
+    desc: string
+    prices: number[]
+    productId: string
+    quantity: number
+}
+
+interface PropductTableProps {
+    products: Product[]
+}
+
+const ProductTable = ({ products }: PropductTableProps) => {
     return (
         <div className="rounded-md border bg-white shadow-sm">
             <div className="overflow-x-auto">
@@ -20,7 +33,7 @@ const ProductTable = ({ products }) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {products?.map((product) => (
+                        {products?.map((product: Product) => (
                             <TableRow key={product._id} className="hover:bg-gray-50">
                                 <TableCell>
                                     <div className="relative h-16 w-16 overflow-hidden rounded-md">

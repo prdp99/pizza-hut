@@ -1,13 +1,17 @@
 import { getProducts } from '@/actions/product'
-import React from 'react'
 import ProductCard from './product-card'
 
-
+interface ProductType {
+    _id: string
+    title: string
+    desc: string
+    img: string
+}
 const Products = async () => {
     const response = await getProducts()
     const { status, message, data } = response
 
-    if(status !== 200) {
+    if (status !== 200) {
         return (
             <div className='flex items-center justify-center w-full h-screen'>
                 <h1 className='text-2xl font-bold text-red-500'>{message}</h1>
@@ -15,15 +19,16 @@ const Products = async () => {
         )
     }
 
-  
+
     console.log('Products', response)
-   
+
 
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4'>
-            {data && data.map((product: any) => (   
-                <ProductCard key={product._id} product={product} /> 
+            {data && (data as unknown as ProductType[]).map((product) => (
+                <ProductCard key={product._id} product={product} />
             ))}
+
         </div>
     )
 }

@@ -4,16 +4,12 @@ import { OrderStatusBadge } from './order-status-badge'
 import { OrderStatusSelect } from './order-status-select'
 import { Button } from '@/components/ui/button'
 import { Eye } from 'lucide-react'
+import { OrderType } from './order-details-dialog'
 
-const TableData = ({ orders }) => {
-
-  const handleSort = () => {
-
-  }
-
-  const handleStatusChange = () => {}
-
-  const getSortIcon = () => 're'
+interface TableDataProps {
+  orders: OrderType[]
+}
+const TableData = ({ orders }: TableDataProps) => {
   return (
     <div className="rounded-md border bg-white shadow-sm">
       <div className="overflow-x-auto">
@@ -21,20 +17,20 @@ const TableData = ({ orders }) => {
           <TableHeader>
             <TableRow>
               <TableHead className="w-[100px] cursor-pointer" >
-                <div className="flex items-center">Order ID {getSortIcon("orderId")}</div>
+                <div className="flex items-center">Order ID </div>
               </TableHead>
               <TableHead className="cursor-pointer" >
-                <div className="flex items-center">Customer {getSortIcon("customer")}</div>
+                <div className="flex items-center">Customer </div>
               </TableHead>
               <TableHead className="hidden md:table-cell">Address</TableHead>
               <TableHead className="cursor-pointer">
-                <div className="flex items-center">Date {getSortIcon("date")}</div>
+                <div className="flex items-center">Date </div>
               </TableHead>
               <TableHead className="cursor-pointer">
-                <div className="flex items-center">Total {getSortIcon("total")}</div>
+                <div className="flex items-center">Total</div>
               </TableHead>
               <TableHead className="cursor-pointer" >
-                <div className="flex items-center">Status {getSortIcon("status")}</div>
+                <div className="flex items-center">Status </div>
               </TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
@@ -56,7 +52,7 @@ const TableData = ({ orders }) => {
                       <OrderStatusSelect
                         currentStatus={order.status}
                         orderId={order._id}
-                        // onStatusChange={(newStatus) => handleStatusChange(order.id, newStatus)}
+                      // onStatusChange={(newStatus) => handleStatusChange(order.id, newStatus)}
                       />
                       <Button
                         variant="ghost"

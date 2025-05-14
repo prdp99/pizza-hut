@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import React from 'react'
 
-const OrderStatus = ({ status }) => {
+interface OrderStatusProps {
+    status: number
+}
+const OrderStatus = ({ status }: OrderStatusProps) => {
 
     return (
         <div>

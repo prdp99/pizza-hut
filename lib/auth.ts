@@ -1,9 +1,9 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
-import dbConnect from "./db"; 
+import dbConnect from "./db";
 import mongoose from "mongoose";
 import { nextCookies } from "better-auth/next-js";
-import { admin ,organization} from "better-auth/plugins"
+import { admin, organization } from "better-auth/plugins"
 
 async function getMongoClient() {
   await dbConnect();
@@ -11,14 +11,15 @@ async function getMongoClient() {
   return client;
 }
 
-const client = await getMongoClient(); 
-export const db = client.db(); 
+const client = await getMongoClient();
+export const db = client.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db),
+  secret: process.env.NEXT_BETTER_AUTH_SECRET,
   emailAndPassword: {
     enabled: true
   },
-  plugin: [nextCookies(),admin(),organization()],
+  plugin: [nextCookies(), admin(), organization()],
 });
 

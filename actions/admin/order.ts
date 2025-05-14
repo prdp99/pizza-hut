@@ -20,7 +20,7 @@ export async function getAllOrders() {
 
 }
 
-export async function updateOrderStatus(orderId, status) {
+export async function updateOrderStatus(orderId: string, status: string) {
 
     try {
         const order = await Order.findById(orderId)

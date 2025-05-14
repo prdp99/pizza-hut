@@ -2,6 +2,7 @@ import { Suspense } from "react"
 import { OrdersList } from "./orders-list"
 import { OrdersListSkeleton } from "./orders-list-skeleton"
 import { getAllOrders } from "@/actions/admin/order"
+import { OrderType } from "./order-details-dialog"
 
 export default async function OrdersPage() {
   const orders = await getAllOrders()
@@ -17,7 +18,7 @@ export default async function OrdersPage() {
       </div>
 
       <Suspense fallback={<OrdersListSkeleton />}>
-        <OrdersList orders={orders} />
+        <OrdersList orders={orders as unknown as OrderType[]} />
       </Suspense>
     </div>
   )

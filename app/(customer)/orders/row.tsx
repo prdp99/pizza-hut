@@ -1,9 +1,13 @@
-import React from 'react'
-import OrderStatus from './status'
 import { getProductById } from '@/actions/product'
+import { OrderType } from '@/app/(admin)/admin/orders/order-details-dialog'
+import Image from 'next/image'
 import Link from 'next/link'
 
-const OrderRow = async ({ orderDetails }) => {
+interface OrderDetailsProps {
+    orderDetails: OrderType
+}
+
+const OrderRow = async ({ orderDetails }:OrderDetailsProps) => {
     const response = await getProductById(orderDetails?.productId)
 
     console.log('pizza details', response?.data)
@@ -14,10 +18,13 @@ const OrderRow = async ({ orderDetails }) => {
             <td>
                 <div className="w-30 h-30  rounded-lg flex-shrink-0">
                     <Link href={`/product/${orderDetails.productId}`} title={response?.data?.title}>
-                        <img
+                        <Image
                             src={response?.data?.img || "/img/pizza.png"}
                             alt={"Product"}
                             className="w-full h-full object-cover rounded-lg"
+                            // fill
+                            height={30}
+                            width={30}
                         />
                     </Link>
                 </div>

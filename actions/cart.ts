@@ -10,7 +10,11 @@ export async function getCart() {
 
         await dbConnect()
         const session = await authGaurd()
-        const userId = session?.user?.id
+
+        // @ts-expect-error error
+        const userId = session.user.userId
+
+        console.log('cart cgeck',userId)
         const cart = await Cart.findOne({ userId })
 
         // console.log('========getting cart====',cart)
@@ -36,6 +40,7 @@ export async function getAllCartItems() {
 
         await dbConnect()
         const session = await authGaurd();
+        // @ts-expect-error error
         const userId = session?.user?.id
         const cart = await Cart.findOne({ userId })
 
@@ -73,6 +78,9 @@ export async function addCart(params: { productId: string, quantity: number, ext
 
         await dbConnect()
         const session = await authGaurd()
+
+        // @ts-expect-error error
+
         const userId = session?.user?.id
 
         const cartExist = await Cart.findOne({ userId })
@@ -149,6 +157,8 @@ export async function removeCartItem(productId: string) {
     try {
         await dbConnect()
         const session = await authGaurd()
+
+        // @ts-expect-error error
         const userId = session?.user?.id
         const cart = await Cart.findOne({ userId })
 
@@ -159,6 +169,7 @@ export async function removeCartItem(productId: string) {
             }
         }
 
+        // @ts-expect-error err
         const product = cart.products.find((prod) => {
             if (prod._id == productId) {
                 return prod

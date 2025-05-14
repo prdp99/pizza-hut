@@ -5,8 +5,12 @@ import OrderRow from "./order-row"
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
+import { OrderType } from "./order-details-dialog"
 
-export default function OrdersTable({ orders }) {
+interface OrdersTableProps {
+  orders: OrderType[]
+}
+export default function OrdersTable({ orders }: OrdersTableProps) {
   const [searchTerm, setSearchTerm] = useState("")
 
   const filteredOrders = orders.filter(

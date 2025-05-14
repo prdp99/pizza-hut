@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React from 'react'
 
-type ProductCardProps = {
+export type ProductCardProps = {
     product: {
         _id: string
         title: string

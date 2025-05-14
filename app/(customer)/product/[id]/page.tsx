@@ -5,11 +5,8 @@ import ProductSize from './size'
 import ProductPrice from './price'
 import AddToCart from './add-to-cart'
 
-type ProductPageProps = {
-    params: {
-        id: string
-    }
-}
+
+
 
 const SIZES_OPTIONS = [
     { value: 'sm', label: 'Small' },
@@ -17,11 +14,14 @@ const SIZES_OPTIONS = [
     { value: 'lg', label: 'Large' },
 ]
 
-const ProductPage = async ({ params }: ProductPageProps) => {
-    const productId = params?.id
+type Params = Promise<{ id: string }>
+
+
+const ProductPage = async (props: { params: Params }) => {
+    const params = await props.params
+    const productId = params.id
+
     const response = await getProductById(productId)
-
-
 
     if (!response || response.status !== 200) {
         notFound() // Redirect to a 404 page if the product is not found
@@ -50,7 +50,7 @@ const ProductPage = async ({ params }: ProductPageProps) => {
                     </div>
 
                 </div>
-                <AddToCart  productId={product.id} prices={product.prices} />
+                <AddToCart productId={product.id} prices={product.prices} />
 
             </div>
         </div>

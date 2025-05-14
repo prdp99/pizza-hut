@@ -7,7 +7,7 @@ export default function Home() {
       <Featured />
       <div className="flex flex-col items-center pt-30  py-10 gap-10">
         <h2 className="font-bold text-4xl">THE BEST PIZZA IN TOWN!</h2>
-        <p className="text-2xl">"Satisfy your craving for deliciousness with Pizza Hut – the go-to place for tasty pizza!"</p>
+        <p className="text-2xl">{`"Satisfy your craving for deliciousness with Pizza Hut – the go-to place for tasty pizza!"`}</p>
       </div>
       <ProductList />
     </div>

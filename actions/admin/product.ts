@@ -62,7 +62,7 @@ export async function addProduct(param: ProductFormValues) {
     }
 }
 
-export async function updateProduct(productId, param: ProductFormValues) {
+export async function updateProduct(productId:string , param: ProductFormValues) {
 
     const {
         title,

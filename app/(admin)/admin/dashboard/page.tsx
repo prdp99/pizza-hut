@@ -2,6 +2,9 @@ import { Suspense } from "react"
 import { ProductList } from "./product-list"
 import { ProductListSkeleton } from "./product-list-skeleton"
 import { getProducts } from "@/actions/product"
+import { Product } from "./product-table"
+
+export const dynamic = "force-dynamic"
 
 export default async function DasboardPage() {
   const products = await getProducts()
@@ -15,7 +18,7 @@ export default async function DasboardPage() {
       </div>
 
       <Suspense fallback={<ProductListSkeleton />}>
-        <ProductList products={products?.data} />
+        <ProductList products={products?.data as unknown as Product[]} />
       </Suspense>
     </div>
   )

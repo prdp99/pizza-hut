@@ -1,14 +1,13 @@
 'use client'
-import React, { useState } from 'react'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
 import { authClient } from '@/lib/auth-client'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { z } from 'zod'
+import { Button } from '../ui/button'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Input } from '../ui/input'
 // import { signupUser } from '@/actions/auth'
 
 interface SignupFormValues {
@@ -37,7 +36,7 @@ const formSchema = z
 const SignupForm = () => {
 
 
-    const router = useRouter()
+    // const router = useRouter()
     const [pending, setPending] = useState(false)
     const form = useForm<SignupFormValues>({
         resolver: zodResolver(formSchema),
@@ -54,7 +53,6 @@ const SignupForm = () => {
     const onSubmit = async (formValues: SignupFormValues) => {
 
         const { email, password } = formValues
-        let image = ''
 
         console.log(formValues)
 
@@ -62,21 +60,22 @@ const SignupForm = () => {
             email, // user email address
             password, // user password -> min 8 characters by default
             name: 'User', // user display name
-            image
+            image: ''
         }, {
-            onRequest: (ctx) => {
+            onRequest: () => {
                 //show loading
+                setPending(true)
             },
             onSuccess: (ctx) => {
                 //redirect to the dashboard or sign in page
                 console.log('success', ctx)
+                setPending(false)
             },
             onError: (ctx) => {
                 // display the error message
                 console.log('failed', ctx.error.message)
                 toast.error(ctx.error.message)
-
-
+                setPending(false)
             },
         });
 

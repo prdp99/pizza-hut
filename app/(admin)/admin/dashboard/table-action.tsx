@@ -1,12 +1,15 @@
-import { Button } from '@/components/ui/button'
 import { TableCell } from '@/components/ui/table'
-import { Edit } from 'lucide-react'
 import { DeleteProductDialog } from './delete-product-dialog'
 import { EditProductDialog } from './edit-product-dialog'
+import { Product } from './product-table'
 
-const TableAction = (props) => {
+interface TableActionProps {
+  product: Product
+}
+
+const TableAction = (props: TableActionProps) => {
   const { product } = props
-  const {_id, ...rest} = product
+  const { _id, ...rest } = product
   return (
     <TableCell className="text-right">
       <div className="flex justify-end">

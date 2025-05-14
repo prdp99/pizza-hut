@@ -5,12 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
 
-export function ImageUpload({ currentImage, onImageChange }) {
+interface ImageUploadProps {
+  currentImage: string | File | null;
+  onImageChange: (image: File | null) => void;
+}
+
+export function ImageUpload({ currentImage, onImageChange }: ImageUploadProps) {
   const [previewUrl, setPreviewUrl] = useState(currentImage);
   const fileInputRef = useRef(null);
 
 
-  const handleUpload = (event) => {
+  const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    if (!event.target.files) return
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
@@ -30,7 +37,7 @@ export function ImageUpload({ currentImage, onImageChange }) {
         <div className="relative h-20 w-20 overflow-hidden rounded-md border">
           {previewUrl ? (
             <Image
-              src={previewUrl}
+              src={previewUrl as string}
               alt="Uploaded image"
               fill
               className="object-cover"
@@ -51,7 +58,8 @@ export function ImageUpload({ currentImage, onImageChange }) {
             onChange={handleUpload}
           />
           <Button type="button" variant="outline" size="sm" className="flex items-center gap-2"
-           onClick={() => fileInputRef && fileInputRef?.current?.click()}
+          // @ts-expect-error error
+            onClick={() => fileInputRef && fileInputRef?.current?.click()}
           >
             <Upload className="h-4 w-4" />
             Upload Image

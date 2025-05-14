@@ -10,7 +10,7 @@ export function EmptyOrders() {
       </div>
       <h3 className="text-lg font-semibold text-gray-900">No orders yet</h3>
       <p className="mt-1 text-sm text-gray-500 max-w-md">
-        You haven't placed any orders yet. When you do, they'll appear here for you to track.
+        {" You haven't placed any orders yet. When you do, they'll appear here for you to track."}
       </p>
       <Button asChild className="mt-6">
         <Link href="/">Order a Pizza</Link>

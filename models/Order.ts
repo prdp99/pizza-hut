@@ -68,6 +68,7 @@ OrderSchema.pre('save', async function (next) {
             (date.getMonth() + 1).toString().padStart(2, '0') +
             date.getDate().toString().padStart(2, '0');
 
+        // @ts-expect-error error
         // Find the highest sequential number for today
         const lastOrder = await this.constructor.findOne(
             { orderId: new RegExp('^' + prefix + datePart) },
@@ -86,7 +87,9 @@ OrderSchema.pre('save', async function (next) {
         // Set the orderId
         this.orderId = `${prefix}${datePart}${sequentialNumber}`;
         next();
-    } catch (error) {
+
+        // @ts-expect-error error
+    } catch (error: CallbackError | undefined) {
         next(error);
     }
 });

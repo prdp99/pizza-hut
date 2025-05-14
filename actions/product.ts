@@ -21,7 +21,6 @@ export type ProductType = {
 export async function getProducts() {
     try {
         await dbConnect()
-
         const products = await Product.find().lean()
 
         return {

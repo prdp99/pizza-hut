@@ -1,15 +1,14 @@
 'use client'
-import React, { useState } from 'react'
-import { Input } from '../ui/input'
-import { Button } from '../ui/button'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
-import { authClient } from '@/lib/auth-client'
 import useAuth from '@/hooks/use-auth'
+import { authClient } from '@/lib/auth-client'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { z } from 'zod'
+import { Button } from '../ui/button'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
+import { Input } from '../ui/input'
 // import { signupUser } from '@/actions/auth'
 
 interface LoginFormValues {
@@ -56,7 +55,7 @@ const LoginForm = () => {
             email, // user email address
             password, // user password -> min 8 characters by default
         }, {
-            onRequest: (ctx) => {
+            onRequest: () => {
                 //show loading
                 setPending(true)
             },

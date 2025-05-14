@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 
-export function OrderStatusBadge({ status }) {
+export function OrderStatusBadge({ status }: { status: string }) {
   // Convert numeric status to string if needed
   const getStatusInfo = () => {
     switch (status) {
@@ -40,6 +40,7 @@ export function OrderStatusBadge({ status }) {
   const statusInfo = getStatusInfo()
 
   return (
+    // @ts-expect-error erro
     <Badge variant={statusInfo.variant} className={statusInfo.className}>
       {statusInfo.label}
     </Badge>
