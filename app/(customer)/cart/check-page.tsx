@@ -63,7 +63,7 @@ const CheckPage = ({ amount, orderDetails, userId }: CheckPageProps) => {
             return
         }
 
-        if(!clientSecret) {
+        if (!clientSecret) {
             setLoading(false)
             return
         }
@@ -72,7 +72,7 @@ const CheckPage = ({ amount, orderDetails, userId }: CheckPageProps) => {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: `http://localhost:3000/orders`,
+                return_url: `${process.env.NEXT_PUBLIC_BASE_URL}/orders`,
             },
         })
 
