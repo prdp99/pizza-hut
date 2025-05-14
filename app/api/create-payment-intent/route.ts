@@ -16,6 +16,8 @@ export async function POST(request: Request) {
             metadata
         })
 
+        console.log('Created payment intent')
+
         return NextResponse.json({
             clientSecret: paymentIntent.client_secret,
 

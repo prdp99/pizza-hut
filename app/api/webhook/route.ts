@@ -8,14 +8,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!
 
 export async function POST(req: Request) {
+    const rawBody = await req.arrayBuffer()
+    const bodyBuffer = Buffer.from(rawBody)
     const head = await headers()
     const sig = head.get('stripe-signature') as string
-    const body = await req.text()
 
     let event: Stripe.Event
 
     try {
-        event = stripe.webhooks.constructEvent(body, sig, endpointSecret)
+        event = stripe.webhooks.constructEvent(bodyBuffer, sig, endpointSecret)
     } catch (err) {
         console.error('Webhook verification failed', err)
         return new NextResponse('Webhook Error', { status: 400 })
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
                 amount: paymentIntent.amount,
             })
 
+            console.log('order created')
 
             return NextResponse.json({
                 status: 200,

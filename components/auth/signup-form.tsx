@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { Button } from '../ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form'
 import { Input } from '../ui/input'
+import useAuth from '@/hooks/use-auth'
 // import { signupUser } from '@/actions/auth'
 
 interface SignupFormValues {
@@ -35,6 +36,7 @@ const formSchema = z
 
 const SignupForm = () => {
 
+    const { setIsOpen } = useAuth()
 
     // const router = useRouter()
     const [pending, setPending] = useState(false)
@@ -70,6 +72,7 @@ const SignupForm = () => {
                 //redirect to the dashboard or sign in page
                 console.log('success', ctx)
                 setPending(false)
+                setIsOpen(false)
             },
             onError: (ctx) => {
                 // display the error message
