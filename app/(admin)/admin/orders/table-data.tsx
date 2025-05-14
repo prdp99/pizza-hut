@@ -5,6 +5,7 @@ import { OrderStatusSelect } from './order-status-select'
 import { Button } from '@/components/ui/button'
 import { Eye } from 'lucide-react'
 import { OrderType } from './order-details-dialog'
+import moment from 'moment'
 
 interface TableDataProps {
   orders: OrderType[]
@@ -42,7 +43,7 @@ const TableData = ({ orders }: TableDataProps) => {
                   <TableCell className="font-medium">{order.orderId}</TableCell>
                   <TableCell>{order.customerName}</TableCell>
                   <TableCell className="hidden md:table-cell max-w-[200px] truncate">{order.customerAddress}</TableCell>
-                  <TableCell>{JSON.stringify(order?.createdAt)}</TableCell>
+                  <TableCell>{moment(order?.createdAt).format('MMMM Do YYYY')}</TableCell>
                   <TableCell>${order.price}</TableCell>
                   <TableCell>
                     <OrderStatusBadge status={order.status} />
